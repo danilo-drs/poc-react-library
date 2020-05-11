@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './styles.module.css'
 
 
-export const ExampleComponent = ({ cep }) => {
+export const ExampleComponent = ({ cep, onAddressFound, isvisible }) => {
   const [oldCEP, setOldCEP] = useState({});
   const [address, setAddress] = useState({});
   if (cep && cep !== oldCEP) {
@@ -12,16 +12,22 @@ export const ExampleComponent = ({ cep }) => {
       .then(
         (result) => {
           setAddress(result);
+          if (onAddressFound)
+            onAddressFound(result);
         },
-        (error) => { 
-          setAddress({logradouro: 'não encontrado'});
+        (error) => {
+          const ret = { logradouro: 'não encontrado' }
+          setAddress(ret);
+          if (onAddressFound)
+            onAddressFound(ret);
         }
       )
   }
-  return <div className={styles.test}>
+  return isvisible ? <div className={styles.test}>
     {address.logradouro || ''}
      - {address.bairro || ''}
      - {address.cidade || ''}
      - {address.estado || ''}
   </div>
+     : ""
 }
