@@ -51,6 +51,6 @@
     "dist"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/danilo-drs/"
+    "registry": "https://npm.pkg.github.com/@danilo-drs"
   }
 }
